@@ -30,7 +30,7 @@ namespace Budget
             do
             {
                 Console.WriteLine("Budget Account Information");
-                Console.WriteLine("---------------------");
+                Console.WriteLine("------------------------------");
 
                 Console.WriteLine("A)dd Account Information");
                 Console.WriteLine("Q)uit");
@@ -42,7 +42,12 @@ namespace Budget
                 else if (value == "A")
                     return 'A';
 
-                DisplayError("Invalid option");
+                if (value == "q")
+                    return 'q';
+                else if (value == "a")
+                    return 'a';
+
+                DisplayError("Invalid option. Try again. ");
             } while (true);
         }
 
@@ -62,11 +67,29 @@ namespace Budget
             string accountNickname = ReadString(true);
 
             Console.WriteLine("Account Number: ");
-            string accountNumber = ReadString(true);
+            string accountNumber = ReadInt32(0);
 
             Console.WriteLine("Starting Balance: ");
             decimal startingBalance = ReadDecimal(0);
         }
+
+        static string ReadInt32 ( int minimumValue )
+        {
+            do
+            {
+                string value = Console.ReadLine();
+
+                string result;
+                if (Int32.TryParse(value, out result) && result >= minimumValue)
+                    return result;
+
+                if (minimumValue = Int32.MinValue)
+                    DisplayError("Value must be at least " + minimumValue);
+                else
+                    DisplayError("Must be integral value");
+            } while (true);
+        }
+
         static decimal ReadDecimal ()
         {
             return ReadDecimal(Decimal.MinValue);
@@ -85,7 +108,7 @@ namespace Budget
                 if (minimumBalance != Decimal.MinValue) 
                     DisplayError("Value must be at least " + minimumBalance); 
                 else
-                    DisplayError("Must be integral value");
+                    DisplayError("Value must have a decimal. ");
             } while (true);
         }
 
