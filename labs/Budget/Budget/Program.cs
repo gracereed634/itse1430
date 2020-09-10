@@ -67,23 +67,23 @@ namespace Budget
             string accountNickname = ReadString(true);
 
             Console.WriteLine("Account Number: ");
-            string accountNumber = ReadInt32(0);
+            string accountNumber = ReadInt32(0).ToString();
 
             Console.WriteLine("Starting Balance: ");
             decimal startingBalance = ReadDecimal(0);
         }
 
-        static string ReadInt32 ( int minimumValue )
+        static int ReadInt32 ( int minimumValue )
         {
             do
             {
                 string value = Console.ReadLine();
 
-                string result;
+                int result;
                 if (Int32.TryParse(value, out result) && result >= minimumValue)
                     return result;
 
-                if (minimumValue = Int32.MinValue)
+                if (minimumValue != Int32.MinValue)
                     DisplayError("Value must be at least " + minimumValue);
                 else
                     DisplayError("Must be integral value");
